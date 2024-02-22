@@ -21,13 +21,10 @@ app.use((req, res, next) => {
   next();
 });
 
-// 3) Routes
-
+// 2) Routes
 app.use('/api/v1/tours', tourRouter);
 app.use('/api/v1/users', userRouter);
 
-// 4) Start Server
-const port = 8000;
-app.listen(port, () => {
-  console.log(`App running on port ${port} ...`);
-});
+// 3) Start Server
+
+module.exports = app;
