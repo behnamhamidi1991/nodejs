@@ -26,5 +26,4 @@ app.use('/api/v1/tours', tourRouter);
 app.use('/api/v1/users', userRouter);
 
 // 3) Start Server
-
 module.exports = app;
