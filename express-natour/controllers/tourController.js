@@ -16,6 +16,28 @@ exports.checkID = (req, res, next, val) => {
   next();
 };
 
+exports.checkBody = (req, res, next) => {
+  // if (!req.body.name || !req.body.price) {
+  //   return res.status(400).json({
+  //     status: 'fail',
+  //     message: 'Missing name or price!',
+  //   });
+  // }
+
+  if (!req.body.name) {
+    return res.status(400).json({
+      status: 'Failed!',
+      message: 'Name input is empty, You must enter your name!',
+    });
+  } else if (!req.body.price) {
+    return res.status(400).json({
+      status: 'Failed!',
+      message: 'You should enter the price!',
+    });
+  }
+  next();
+};
+
 exports.getAllTours = (req, res) => {
   console.log(req.requestTime);
   res.status(200).json({
