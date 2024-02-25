@@ -1,41 +1,39 @@
-var createError = require('http-errors');
-var express = require('express');
-var path = require('path');
-var cookieParser = require('cookie-parser');
-var logger = require('morgan');
+const express = require('express');
+const app = express();
+const path = require('path');
 
-var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
+const PORT = 8000;
 
-var app = express();
-
-// view engine setup
-app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'jade');
-
-app.use(logger('dev'));
-app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
-app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public')));
-
-app.use('/', indexRouter);
-app.use('/users', usersRouter);
-
-// catch 404 and forward to error handler
-app.use(function(req, res, next) {
-  next(createError(404));
+app.get('/', (req, res) => {
+  res.send('This is a message from the server!');
 });
 
-// error handler
-app.use(function(err, req, res, next) {
-  // set locals, only providing error in development
-  res.locals.message = err.message;
-  res.locals.error = req.app.get('env') === 'development' ? err : {};
-
-  // render the error page
-  res.status(err.status || 500);
-  res.render('error');
+app.post('/', (req, res) => {
+  res.send('Got a POST request');
 });
 
-module.exports = app;
+app.put('/user', (req, res) => {
+  res.send('Got a PUT request at /user');
+});
+
+app.delete('/user/:id', (req, res) => {
+  res.send('Got a delete request at /user');
+});
+
+app.patch('/user/:id', (req, res) => {
+  res.send('Got a patch request at /user/:id');
+});
+
+// app.use(express.static('public/images'));
+// app.use(express.static('public/javascripts'));
+// app.use(express.static('public/stylesheets'));
+
+// app.use('static', express.static(path.join(__dirname, 'public')));
+
+app.use((req, res, next) => {
+  res.status(404).send('404: Sorry, something went wrong!');
+});
+
+app.listen(PORT, () => {
+  console.log(`Example app listening on port ${PORT}`);
+});
